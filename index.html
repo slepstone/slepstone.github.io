@@ -75,6 +75,11 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unity) => {
           unityInstance = unity;
+
+          window.addEventListener('deviceorientation', function(event) {
+              unityInstance.SendMessage('GyroController', 'OnDeviceOrientation', event.absolute,event.alpha,event.beta,event.gamma);
+          });
+
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
