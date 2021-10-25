@@ -77,6 +77,7 @@
           unityInstance = unity;
 
           window.addEventListener('deviceorientation', function(event) {
+              unityInstance.SendMessage('GyroController', 'OnHello',"On Device Ori");
               unityInstance.SendMessage('GyroController', 'OnDeviceOrientation', event.absolute,event.alpha,event.beta,event.gamma);
           });
 
