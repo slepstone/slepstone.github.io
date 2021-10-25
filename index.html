@@ -25,111 +25,13 @@
         <div id="unity-build-title">WebAPIGyro</div>
       </div>
     </div>
-
-    <table>
-      <tr>
-        <td colspan="2">
-          <hr>
-        </td>
-      </tr>
-      <tr class='highlight'>
-        <td>'devicemotion' status</td>
-        <td width="250px" id="motionSupported"></td>
-      </tr>
-      <tr>
-        <td>relevant sensors available:</td>
-        <td id="motionSensorsAvailable"></td>
-      </tr>
-      <tr>
-        <td>motion acceleration (x, y, z)</td>
-        <td id="motionAccel"></td>
-      </tr>
-      <tr>
-        <td>motion acceleration incl. gravity (x, y, z)</td>
-        <td id="motionAccelG"></td>
-      </tr>
-      <tr>
-        <td>motion rotation rate (&alpha;, &beta;, &gamma;)</td>
-        <td id="motionRotation"></td>
-      </tr>
-      <tr>
-        <td>real-time motion frequency (Hz)</td>
-        <td id="motionFreq"></td>
-      </tr>
-      <tr>
-        <td>motion max frequency (Hz)</td>
-        <td id="motionMaxFreq"></td>
-      </tr>
-      <tr>
-        <td>motion stated interval</td>
-        <td id="motionInterval"></td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <hr>
-        </td>
-      </tr>
-      <tr class='highlight'>
-        <td>'deviceorientation' status</td>
-        <td id="orientationSupported"></td>
-      </tr>
-      <tr>
-        <td>relevant sensors available:</td>
-        <td id="orientationSensorsAvailable"></td>
-      </tr>
-      <tr>
-        <td>orientation values (&alpha;, &beta;, &gamma;)</td>
-        <td id="orientationValues"></td>
-      </tr>
-      <tr>
-        <td>orientation absolute</td>
-        <td id="orientationAbsolute"></td>
-      </tr>
-      <tr>
-        <td>orientation frequency (Hz)</td>
-        <td id="orientationFreq"></td>
-      </tr>
-      <tr>
-        <td>orientation max frequency (Hz)</td>
-        <td id="orientationMaxFreq"></td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <hr>
-        </td>
-      </tr>
-      <tr class='highlight'>
-        <td>'deviceorientationabsolute' status</td>
-        <td id="orientationAbsoluteSupported"></td>
-      </tr>
-      <tr>
-        <td>relevant sensors available:</td>
-        <td id="orientationAbsoluteSensorsAvailable"></td>
-      </tr>
-      <tr>
-        <td>orientationabsolute values (&alpha;, &beta;, &gamma;)</td>
-        <td id="orientationAbsoluteValues"></td>
-      </tr>
-      <tr>
-        <td>orientationabsolute absolute</td>
-        <td id="orientationAbsoluteAbsolute"></td>
-      </tr>
-      <tr>
-        <td>orientationabsolute frequency (Hz)</td>
-        <td id="orientationAbsoluteFreq"></td>
-      </tr>
-      <tr>
-        <td>orientationabsolute max frequency (Hz)</td>
-        <td id="orientationAbsoluteMaxFreq"></td>
-      </tr>
-    </table>
     <script>
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/text_v0.21.loader.js";
+      var loaderUrl = buildUrl + "/slepstone.github.io.loader.js";
       var config = {
-        dataUrl: buildUrl + "/text_v0.21.data",
-        frameworkUrl: buildUrl + "/text_v0.21.framework.js",
-        codeUrl: buildUrl + "/text_v0.21.wasm",
+        dataUrl: buildUrl + "/slepstone.github.io.data",
+        frameworkUrl: buildUrl + "/slepstone.github.io.framework.js",
+        codeUrl: buildUrl + "/slepstone.github.io.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "WebAPIGyro",
@@ -149,27 +51,6 @@
       // happening inside the engine, and you would instead like to size up
       // the canvas DOM size and WebGL render target sizes yourself.
       // config.matchWebGLToCanvasSize = false;
-
-
-      function onOrientation(event) {
-        if (event.alpha==null && event.beta==null && event.gamma==null) {
-          // null-event
-          document.getElementById("orientationSensorsAvailable").innerHTML = "no";
-          return;
-        }
-        document.getElementById("orientationValues").innerHTML =
-            roundToFixedArray([event.alpha, event.beta, event.gamma]);
-        document.getElementById("orientationAbsolute").innerHTML = event.absolute;
-        document.getElementById("orientationSensorsAvailable").innerHTML = "yes";
-        ++numberOrientationEvents;
-      }
-      var orientationSupported="not supported";
-
-      if ('ondeviceorientation' in window) {
-        window.addEventListener('deviceorientation', onOrientation);
-        orientationSupported = "supported";
-      }
-      document.getElementById("orientationSupported").innerHTML = orientationSupported;
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         container.className = "unity-mobile";
@@ -192,7 +73,6 @@
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
-     
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
