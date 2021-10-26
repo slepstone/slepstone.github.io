@@ -107,7 +107,7 @@
 
 		// Wait for Promise fulfillment
 		orientationPromise.then(function (deviceOrientationController) {
-			control = deviceOrientationController.getScreenAdjustedQuaternion();
+			control = deviceOrientationController;
 		}).catch(function (reason) {
 			console.error(reason);
 		});
