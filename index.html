@@ -87,13 +87,13 @@
             event.gamma
           ); // q
 
-          var worldTransform = getWorldTransformationQuaternion(); // q_w
+          //var worldTransform = getWorldTransformationQuaternion(); // q_w
 
-          var worldAdjustedQuaternion = quaternionMultiply( quaternion, worldTransform ); // q'_w
+          //var worldAdjustedQuaternion = quaternionMultiply( quaternion, worldTransform ); // q'_w
 
-          var screenTransform = getScreenTransformationQuaternion( currentScreenOrientation ); // q_s
+          //var screenTransform = getScreenTransformationQuaternion( currentScreenOrientation ); // q_s
 
-          var finalQuaternion = quaternionMultiply( worldAdjustedQuaternion, screenTransform ); // q'_s         
+          //var finalQuaternion = quaternionMultiply( worldAdjustedQuaternion, screenTransform ); // q'_s         
           unityInstance.SendMessage('GyroController', 'OnDeviceOrientation', finalQuaternion[0] + ":" + finalQuaternion[1] + ":"  + finalQuaternion[2] + ":"  +  finalQuaternion[3] );
         });
 
