@@ -27,6 +27,9 @@
       <div id="unity-build-title">WebAPIGyro</div>
     </div>
   </div>
+
+  <script src="fulltilt.js" type="text/javascript"></script>
+
   <script>
     var buildUrl = "Build";
     var loaderUrl = buildUrl + "/slepstone.github.io.loader.js";
@@ -78,10 +81,10 @@
       }).then((unity) => {
         unityInstance = unity;
 
-        window.addEventListener('deviceorientation', function (event) {
-          //unityInstance.SendMessage('GyroController', 'OnHello', "On Device" + event.alpha);
-          unityInstance.SendMessage('GyroController', 'OnDeviceOrientation', event.alpha + ":" + event.beta + ":" + event.gamma);
-        });
+        // window.addEventListener('deviceorientation', function (event) {
+        //   //unityInstance.SendMessage('GyroController', 'OnHello', "On Device" + event.alpha);
+        //   unityInstance.SendMessage('GyroController', 'OnDeviceOrientation', event.alpha + ":" + event.beta + ":" + event.gamma);
+        // });
 
         loadingBar.style.display = "none";
         fullscreenButton.onclick = () => {
@@ -91,6 +94,15 @@
         alert(message);
       });
     };
+
+    var deviceOrientation = FULLTILT.getDeviceOrientation({'type': 'world'});
+    deviceOrientation.then(function(orientationData) {
+      orientationData.listen(function() {
+        var quaternion = deviceOrientation.getScreenAdjustedQuaternion();
+        console.log(quaternion);
+      });
+
+    });
     document.body.appendChild(script);
   </script>
 </body>
