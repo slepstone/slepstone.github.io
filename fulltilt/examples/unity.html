@@ -81,7 +81,7 @@
 		loadingBar.style.display = "block";
 
 		var script = document.createElement("script");
-		var unityInstance , control;
+		var unityInstance, control;
 		script.src = loaderUrl;
 		script.onload = () => {
 			createUnityInstance(canvas, config, (progress) => {
@@ -106,11 +106,26 @@
 		var orientationPromise = FULLTILT.getDeviceOrientation({ type: "game" });
 
 		// Wait for Promise fulfillment
-		orientationPromise.then(function (deviceOrientationController) {
-			control = deviceOrientationController;
-		}).catch(function (reason) {
-			console.error(reason);
-		});
+		if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+			DeviceOrientationEvent.requestPermission()
+				.then(permissionState => {
+					if (permissionState === 'granted') {
+						orientationPromise.then(function (deviceOrientationController) {
+							control = deviceOrientationController;
+						}).catch(function (reason) {
+							console.error(reason);
+						});
+					}
+				})
+				.catch(console.error);
+		} else {
+			orientationPromise.then(function (deviceOrientationController) {
+				control = deviceOrientationController;
+			}).catch(function (reason) {
+				console.error(reason);
+			});
+		}
+
 		document.body.appendChild(script);
 	</script>
 </body>
