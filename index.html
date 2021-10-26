@@ -94,6 +94,7 @@
           //var screenTransform = getScreenTransformationQuaternion( currentScreenOrientation ); // q_s
 
           //var finalQuaternion = quaternionMultiply( worldAdjustedQuaternion, screenTransform ); // q'_s         
+          var finalQuaternion = quaternion;
           unityInstance.SendMessage('GyroController', 'OnDeviceOrientation', finalQuaternion[0] + ":" + finalQuaternion[1] + ":"  + finalQuaternion[2] + ":"  +  finalQuaternion[3] );
         });
 
