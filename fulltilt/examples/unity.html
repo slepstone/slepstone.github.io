@@ -106,6 +106,8 @@
 
 		// Wait for Promise fulfillment
 		function requestOrientationPermission() {
+			var startButton = document.querySelector("#start-button");
+			startButton.style.display = "none";
 			if (typeof DeviceOrientationEvent.requestPermission === 'function') {
 				DeviceOrientationEvent.requestPermission()
 					.then(permissionState => {
@@ -136,7 +138,7 @@
 		}
 	</script>
 
-	<button onclick='requestOrientationPermission();'>Start</button>
+	<button id="start-button" onclick='requestOrientationPermission();'>Start</button>
 
 </body>
 
