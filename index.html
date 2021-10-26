@@ -93,11 +93,8 @@
 
           var screenTransform = getScreenTransformationQuaternion( currentScreenOrientation ); // q_s
 
-          var finalQuaternion = quaternionMultiply( worldAdjustedQuaternion, screenTransform ); // q'_s
-
-          return finalQuaternion; // [ w, x, y, z ]
-          
-          unityInstance.SendMessage('GyroController', 'OnDeviceOrientation', finalQuaternion[0] + ":" +finalQuaternion[1] + ":"  + finalQuaternion[2] + ":"  + finalQuaternion[3] );
+          var finalQuaternion = quaternionMultiply( worldAdjustedQuaternion, screenTransform ); // q'_s         
+          unityInstance.SendMessage('GyroController', 'OnDeviceOrientation', finalQuaternion[0] + ":" + finalQuaternion[1] + ":"  + finalQuaternion[2] + ":"  +  finalQuaternion[3] );
         });
 
         loadingBar.style.display = "none";
