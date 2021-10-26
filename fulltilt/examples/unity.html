@@ -105,34 +105,39 @@
 
 
 		// Wait for Promise fulfillment
-		if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-			DeviceOrientationEvent.requestPermission()
-				.then(permissionState => {
-					if (permissionState === 'granted') {
+		function requestOrientationPermission() {
+			if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+				DeviceOrientationEvent.requestPermission()
+					.then(permissionState => {
+						if (permissionState === 'granted') {
 
-						var orientationPromise = FULLTILT.getDeviceOrientation({ type: "game" });
+							var orientationPromise = FULLTILT.getDeviceOrientation({ type: "game" });
 
-						orientationPromise.then(function (deviceOrientationController) {
-							control = deviceOrientationController;
-							document.body.appendChild(script);
-						}).catch(function (reason) {
-							console.error(reason);
-						});
+							orientationPromise.then(function (deviceOrientationController) {
+								control = deviceOrientationController;
+								document.body.appendChild(script);
+							}).catch(function (reason) {
+								console.error(reason);
+							});
 
-					}
-				})
-				.catch(console.error);
-		} else {
-			var orientationPromise = FULLTILT.getDeviceOrientation({ type: "game" });
-			orientationPromise.then(function (deviceOrientationController) {
-				control = deviceOrientationController;
-				document.body.appendChild(script);
-			}).catch(function (reason) {
-				console.error(reason);
-			});
+						}
+					})
+					.catch(console.error);
+			} else {
+				var orientationPromise = FULLTILT.getDeviceOrientation({ type: "game" });
+				orientationPromise.then(function (deviceOrientationController) {
+					control = deviceOrientationController;
+					document.body.appendChild(script);
+				}).catch(function (reason) {
+					console.error(reason);
+				});
 
+			}
 		}
 	</script>
+
+	<button onclick='requestOrientationPermission();'>Start</button>
+
 </body>
 
 </html>
