@@ -81,7 +81,7 @@
 		loadingBar.style.display = "block";
 
 		var script = document.createElement("script");
-		var unityInstance;
+		var unityInstance , control;
 		script.src = loaderUrl;
 		script.onload = () => {
 			createUnityInstance(canvas, config, (progress) => {
@@ -107,14 +107,9 @@
 
 		// Wait for Promise fulfillment
 		orientationPromise.then(function (deviceOrientationController) {
-			console.log(deviceOrientationController.getScreenAdjustedQuaternion());
-
-
-
+			control = deviceOrientationController.getScreenAdjustedQuaternion();
 		}).catch(function (reason) {
-
 			console.error(reason);
-
 		});
 		body.appendChild(script);
 	</script>
