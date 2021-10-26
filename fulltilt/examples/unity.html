@@ -103,15 +103,17 @@
 			});
 		};
 
-		var orientationPromise = FULLTILT.getDeviceOrientation({ type: "game" });
+
 
 		// Wait for Promise fulfillment
 		if (typeof DeviceOrientationEvent.requestPermission === 'function') {
 			DeviceOrientationEvent.requestPermission()
 				.then(permissionState => {
 					if (permissionState === 'granted') {
+						var orientationPromise = FULLTILT.getDeviceOrientation({ type: "game" });
 						orientationPromise.then(function (deviceOrientationController) {
 							control = deviceOrientationController;
+							document.body.appendChild(script);
 						}).catch(function (reason) {
 							console.error(reason);
 						});
@@ -119,14 +121,15 @@
 				})
 				.catch(console.error);
 		} else {
+			var orientationPromise = FULLTILT.getDeviceOrientation({ type: "game" });
 			orientationPromise.then(function (deviceOrientationController) {
 				control = deviceOrientationController;
+				document.body.appendChild(script);
 			}).catch(function (reason) {
 				console.error(reason);
 			});
+			
 		}
-
-		document.body.appendChild(script);
 	</script>
 </body>
 
